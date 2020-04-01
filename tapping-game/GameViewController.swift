@@ -17,15 +17,24 @@ class GameViewController: UIViewController {
     //var sceneView: SKView
     //var skView: SKView!
     //var gameScreen: GameScreen!
+    @IBOutlet weak var score: UITextField!
+    
+    var scene: GameScene!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         hideNavBar()
         
         if let view = self.view as! SKView? {
-            if let scene = SKScene(fileNamed: "GameScene") {
+            scene = SKScene(fileNamed: "GameScene") as? GameScene
+            scene.viewController = self
+            view.presentScene(scene)
+            
+            /*if let scene = SKScene(fileNamed: "GameScene") {
                 scene.scaleMode = .aspectFill
                 view.presentScene(scene)
-            }
+                scene.viewController  = self
+            }*/
             view.ignoresSiblingOrder = true
             view.showsFPS = true
             view.showsNodeCount = true

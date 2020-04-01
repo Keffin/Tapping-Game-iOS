@@ -14,9 +14,16 @@ import GameplayKit
 class GameScene: SKScene {
     
     // MARK: Properties
+    weak var viewController: GameViewController!
+    
     // This is the list of nodes displayed on the screen
     private var nodeList: [SKShapeNode] = []
     
+    func scoreBoard() {
+        let oldScore = Int(viewController.score.text!)
+        let newScore = oldScore! + 1
+        viewController.score.text = String(newScore)
+    }
     
     
     func touchDown(atPoint pos : CGPoint) {
@@ -42,8 +49,9 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
            let w = (self.size.width + self.size.height) * 0.05
            for t in touches {
-               self.nodeList.append(SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3))
-               self.touchDown(atPoint: t.location(in: self))
+            self.nodeList.append(SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3))
+            self.scoreBoard()
+            self.touchDown(atPoint: t.location(in: self))
            }
     }
        
