@@ -16,6 +16,8 @@ class GameScene: SKScene {
     // MARK: Properties
     weak var viewController: GameViewController!
     
+    
+    
     // This is the list of nodes displayed on the screen
     private var nodeList: [SKShapeNode] = []
     
@@ -26,35 +28,102 @@ class GameScene: SKScene {
     }
     
     
+    // 2 random functions
+    func random() -> CGFloat {
+        return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
+    }
+    
+    func random(min: CGFloat, max: CGFloat) -> CGFloat {
+        return random() * (max - min) + min
+    }
+    
+    func duckSpawn() {
+        //let duck = //SKShapeNode(circleOfRadius: 10)
+        //duck.fillColor = SKColor.orange
+        let duck = SKSpriteNode(color: UIColor.orange, size: CGSize(width: 40, height: 40))
+        // yScale is the height
+        
+        //let spawnYCord = random(min: duck.yScale/2, max: self.size.height - duck.yScale/2)
+        
+        //print(screenSize.width)
+        //print(screenSize.height)
+        //let spawnYCord = random(min: view?.frame.minY, max: view?.frame.maxY)
+        
+        //let spawnYCord = random(min: duck.size.height/2, max: screenSize.height - duck.size.height/2)
+        //let spawnYCord = random(min: 0, max: screenSize.height)
+        //let spawnYCord = random(min: screenSize.minY, max: screenSize.maxY)
+        //let spawnXCord = random(min: screenSize.minX, max: screenSize.maxX)
+        //print(spawnYCord)
+        //let randX = random(min: -200, max: 600)
+        //let randY = random(min: -200, max: 500)
+        //let randomXCord = random(min: screenSize.minX, max: screenSize.maxX)
+        let randomYCord = random(min: screenSize.minY, max: screenSize.maxY)
+        
+        // Want to spawn from furthes X axis but random Y axis
+        duck.position = CGPoint(x: screenSize.maxX, y: randomYCord)
+        
+        //let spawnYCord = random(min: CGFloat(0), max: screenSize.height)
+        //let spawnXCord = random(min: CGFloat(0), max: screenSize.width)
+        //duck.position = CGPoint(x: screenSize.width, y: spawnYCord)
+        
+        addChild(duck)
+        
+        // Movement speed of the ducks
+        let speed = random(min: CGFloat(1.0), max: CGFloat(3.0))
+        
+        //let xBound = random(min: CGFloat(view?.frame.minX), max: CGFloat(view?.frame.maxX))
+        
+        let movement = SKAction.move(to: CGPoint(x: 0, y: 0), duration: TimeInterval(speed))
+        //let movement = SKAction.move(to: CGPoint(x: 0,y: 0), duration: TimeInterval(speed))
+        
+        // Remove from screen if outside
+        let doneMove = SKAction.removeFromParent()
+        duck.run(SKAction.sequence([movement, doneMove]))
+        //duck.run(SKAction.sequence([movement]))
+        //print(duck.position)
+        
+    }
+    
+    
+    override func didMove(to view: SKView) {
+        run(SKAction.repeatForever(
+          SKAction.sequence([
+            SKAction.run(duckSpawn),
+            SKAction.wait(forDuration: 1.0)
+            ])
+        ))
+    }
+    
+    
     func touchDown(atPoint pos : CGPoint) {
         if let n = self.nodeList.first {
             n.position = pos
-            n.strokeColor = SKColor.green
+            //n.strokeColor = SKColor.green
             self.nodeList.first?.removeFromParent()
             self.addChild(n)
             
             //dump(self.children)
         }
-        /*if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            
-            self.addChild(n)
-            
-            //dump(self.children)
-            
-        }*/
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-           let w = (self.size.width + self.size.height) * 0.05
-           for t in touches {
+        let w = (self.size.width + self.size.height) * 0.05
+        for t in touches {
             self.nodeList.append(SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3))
             self.scoreBoard()
             self.touchDown(atPoint: t.location(in: self))
-           }
+        }
     }
        
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let w = (self.size.width + self.size.height) * 0.05
+        for t in touches {
+            self.nodeList.append(SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3))
+            self.scoreBoard()
+            self.touchDown(atPoint: t.location(in: self))
+        }
+    }
     
     /*func touchMoved(toPoint pos : CGPoint) {
         if let n = self.spinnyNode?.copy() as! SKShapeNode? {
@@ -65,7 +134,15 @@ class GameScene: SKScene {
             
         }
     }
-    
+    /*if let n = self.spinnyNode?.copy() as! SKShapeNode? {
+        n.position = pos
+        n.strokeColor = SKColor.green
+        
+        self.addChild(n)
+        
+        //dump(self.children)
+        
+    }*/
     func touchUp(atPoint pos : CGPoint) {
         if let n = self.spinnyNode?.copy() as! SKShapeNode? {
             n.position = pos

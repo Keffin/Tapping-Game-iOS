@@ -10,6 +10,11 @@ import UIKit
 import SpriteKit
 import CoreGraphics
 
+
+// Global Const, current workaround
+// TODO: Change
+let screenSize: CGRect = UIScreen.main.bounds
+
 class GameViewController: UIViewController {
     
     //let ball = SKShapeNode(circleOfRadius: 20)
@@ -21,13 +26,21 @@ class GameViewController: UIViewController {
     
     var scene: GameScene!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         hideNavBar()
         
         if let view = self.view as! SKView? {
+            // SpriteKit Scene
             scene = SKScene(fileNamed: "GameScene") as? GameScene
             scene.viewController = self
+            
+            
+            // This will set the bottom left corner to our origin, extremely important
+            scene.anchorPoint = CGPoint(x: 0, y: 0)
+            
+            scene.size = view.bounds.size
             view.presentScene(scene)
             
             /*if let scene = SKScene(fileNamed: "GameScene") {

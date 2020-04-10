@@ -7,17 +7,17 @@
 //
 
 import Foundation
-
+import SpriteKit
+import UIKit
 
 class Game {
     
     // MARK: Properties
     var usrName: String
     var points: Int
-    var x: Double
-    var y: Double
+    var coord: CGPoint
     
-    init?(usrName: String, points: Int, x: Double, y: Double){
+    init?(usrName: String, points: Int, coord: CGPoint){
         
         guard points > 0 else {
             fatalError("Points are less than 0, not possible")
@@ -26,8 +26,7 @@ class Game {
         
         self.usrName = usrName
         self.points = points
-        self.x = x
-        self.y = y
+        self.coord = coord
     }
     
 }
