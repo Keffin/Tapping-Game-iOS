@@ -38,50 +38,28 @@ class GameScene: SKScene {
     }
     
     func duckSpawn() {
-        //let duck = //SKShapeNode(circleOfRadius: 10)
-        //duck.fillColor = SKColor.orange
+        
+        // TODO: Find Duck sprite
         let duck = SKSpriteNode(color: UIColor.orange, size: CGSize(width: 40, height: 40))
-        // yScale is the height
+    
         
-        //let spawnYCord = random(min: duck.yScale/2, max: self.size.height - duck.yScale/2)
-        
-        //print(screenSize.width)
-        //print(screenSize.height)
-        //let spawnYCord = random(min: view?.frame.minY, max: view?.frame.maxY)
-        
-        //let spawnYCord = random(min: duck.size.height/2, max: screenSize.height - duck.size.height/2)
-        //let spawnYCord = random(min: 0, max: screenSize.height)
-        //let spawnYCord = random(min: screenSize.minY, max: screenSize.maxY)
-        //let spawnXCord = random(min: screenSize.minX, max: screenSize.maxX)
-        //print(spawnYCord)
-        //let randX = random(min: -200, max: 600)
-        //let randY = random(min: -200, max: 500)
-        //let randomXCord = random(min: screenSize.minX, max: screenSize.maxX)
         let randomYCord = random(min: screenSize.minY, max: screenSize.maxY)
         
         // Want to spawn from furthes X axis but random Y axis
         duck.position = CGPoint(x: screenSize.maxX, y: randomYCord)
-        
-        //let spawnYCord = random(min: CGFloat(0), max: screenSize.height)
-        //let spawnXCord = random(min: CGFloat(0), max: screenSize.width)
-        //duck.position = CGPoint(x: screenSize.width, y: spawnYCord)
-        
         addChild(duck)
         
-        // Movement speed of the ducks
+        // Random movement speed of the ducks
         let speed = random(min: CGFloat(1.0), max: CGFloat(3.0))
         
-        //let xBound = random(min: CGFloat(view?.frame.minX), max: CGFloat(view?.frame.maxX))
-        
-        let movement = SKAction.move(to: CGPoint(x: 0, y: 0), duration: TimeInterval(speed))
-        //let movement = SKAction.move(to: CGPoint(x: 0,y: 0), duration: TimeInterval(speed))
+        // Currently moving them all towards origo
+        let randXEnd = random(min: screenSize.minX, max: screenSize.maxX)
+        // Changed to sprites go towards a random X point, however same Y as they spawned
+        let movement = SKAction.move(to: CGPoint(x: randXEnd, y: randomYCord), duration: TimeInterval(speed))
         
         // Remove from screen if outside
         let doneMove = SKAction.removeFromParent()
-        duck.run(SKAction.sequence([movement, doneMove]))
-        //duck.run(SKAction.sequence([movement]))
-        //print(duck.position)
-        
+        duck.run(SKAction.sequence([movement, doneMove]))        
     }
     
     
