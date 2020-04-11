@@ -24,12 +24,39 @@ class GameScene: SKScene {
     
     private var duckList: [SKNode] = []
     //private var duckCords: [CGPoint] = []
+    private var bomb: SKSpriteNode? = SKSpriteNode()
+    private var bombList: [SKNode] = []
+    private var hasSpawnedBomb: Bool = false
     
+    
+    override func update(_ currentTime: TimeInterval) {
+        // Change this to 10 later
+        super.update(currentTime)
+        
+        
+        if hasSpawnedBomb {
+            return
+        }
+        if !hasSpawnedBomb && Int(viewController.score.text!)! % 5 == 0 && Int(viewController.score.text!) != 0 {
+            hasSpawnedBomb = true
+            bomb = SKSpriteNode(color: UIColor.blue, size: CGSize(width: 20, height: 20))
+            bomb!.name = "bomb"
+            let xCord = screenSize.minX + 20
+            let yCord = screenSize.minY + 20
+            bomb!.position = CGPoint(x: xCord, y: yCord)
+            // Sets bomb to be front view all the time
+            bomb!.zPosition = 1
+            addChild(bomb!)
+        }
+        
+    }
     
     override func didMove(to view: SKView) {
         // if difficulity == easy => forDuration: 7
         // if difficulity == medium => forDuration: 5
         // if difficulity == hard => forDuration: 2
+        
+        
         
         run(SKAction.repeatForever(
           SKAction.sequence([
@@ -44,49 +71,83 @@ class GameScene: SKScene {
         let w = (self.size.width + self.size.height) * 0.01
         for t in touches {
             self.nodeList.append(SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3))
-            self.scoreBoard()
+            
             self.touchDown(atPoint: t.location(in: self))
             
             let location = t.location(in: self)
             let touchedNodes = nodes(at: location)
             
+            
+            // Checks if the touched location is a node with the property name "duck", in that case we remove it
+            
             duckList = touchedNodes.filter { $0.name == "duck"}
             
-            self.duckList.first?.removeFromParent()
-            //let frontTouchedNode = atPoint(location).name
-            //print(location)
-            //print(touchedNodes)
+            //bombList = touchedNodes.filter { $0.name == "bomb" }
+            
+            // Since bomb has highest z position this will always only return bomb type if bomb node is touched
+            let bombNode = atPoint(location)
+            
+            /*if bombNode.name == "bomb" {
+                self.bomb!.position = location
+            }*/
             
             
-            //print(t.location(in: self))
-            /*let touchedLoc = t.location(in: self)
-            if duckCords.contains(touchedLoc) {
-                print("HEJ")
+            if !duckList.isEmpty {
+                self.duckList.first?.removeFromParent()
+                self.scoreBoard()
             }
-             print(touchedLoc)
-             */
             
-            //print(duckCords)
-            //let touchedNode = self.atPoint(touchedLoc)
-            
-            
-            //print(touchedNode.name as Any)
-            //print(touchedLoc)
-        
         }
     }
     
+    func blastDucks() {
+        let xAxisScale = Int(bomb!.position.x + 25)
+        let yAxisScale = Int(bomb!.position.y + 25)
+        let currentX = Int(bomb!.position.x)
+        let currentY = Int(bomb!.position.y)
+        for ducksXAxis in currentX..<xAxisScale {
+            print("X axis scale \(ducksXAxis)")
+        }
+        for duckYAxis in currentY..<yAxisScale {
+            print("Y axis scale \(duckYAxis)")
+        }
+    }
     
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        //super.touchesMoved(<#T##touches: Set<UITouch>##Set<UITouch>#>, with: <#T##UIEvent?#>)
+        for touch in touches {
+            let location = touch.location(in: self)
+            
+            if self.bomb != nil {
+                bomb!.position.x = location.x
+                bomb!.position.y = location.y
+            }
+            
+            
+            
+            //blastDucks()
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        //super.touchesEnded(touches, with: event)
+        //blastDucks()
+        if self.bomb != nil {
+            print("yahooo")
+            self.bomb = nil
+            self.bomb?.removeFromParent()
+        }
+    }
     
     // Drag touch
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    /*override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let w = (self.size.width + self.size.height) * 0.05
         for t in touches {
             self.nodeList.append(SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3))
             self.scoreBoard()
             self.touchDown(atPoint: t.location(in: self))
         }
-    }
+    }*/
 
         
     
@@ -111,7 +172,8 @@ class GameScene: SKScene {
         
         let duck = SKSpriteNode(color: UIColor.orange, size: CGSize(width: 40, height: 40))
         duck.name = "duck"
-        //duck.isUserInteractionEnabled = true
+        
+        
         // TODO: Find Duck sprite
         let randomYCord = random(min: screenSize.minY, max: screenSize.maxY)
         
@@ -122,11 +184,10 @@ class GameScene: SKScene {
         // Random movement speed of the ducks
         let speed = random(min: CGFloat(4.0), max: CGFloat(8.0))
         
-        // Currently moving them all towards origo
-        //let randYEnd = random(min: screenSize.minX, max: screenSize.maxX)
         // Changed to sprites go towards a random X point, however same Y as they spawned
         let movement = SKAction.move(to: CGPoint(x: 0, y: randomYCord), duration: TimeInterval(speed))
-        //duckCords.append(CGPoint(x: 0, y: randomYCord))
+    
+        
         // Remove from screen if outside
         let doneMove = SKAction.removeFromParent()
         duck.run(SKAction.sequence([movement, doneMove]))
@@ -143,38 +204,13 @@ class GameScene: SKScene {
             self.nodeList.first?.removeFromParent()
             self.addChild(n)
             
-            //dump(self.children)
+            
         }
         
     }
     
 
     
-    /*func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-            
-            
-        }
-    }
-    /*if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-        n.position = pos
-        n.strokeColor = SKColor.green
-        
-        self.addChild(n)
-        
-        //dump(self.children)
-        
-    }*/
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
-    }*/
     
    
     /*override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -190,116 +226,6 @@ class GameScene: SKScene {
     }*/
     
     
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
-    }
-    
-    /*override func didMove(to view: SKView) {
-        
-        
-        
-        // Create shape node to use during mouse interaction
-        //let w = (self.size.width + self.size.height) * 0.05
-        //self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-        //self.nodeList.append(SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3))
-        
-        
-        //if let spinnyNode = self.spinnyNode {
-        //    spinnyNode.lineWidth = 5.0
-            
-            //spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), //duration: 1)))
-            //spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-             //                                 SKAction.fadeOut(withDuration: 0.5),
-               //                               SKAction.removeFromParent()]))
-        //}
-    }*/
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /*var ball: SKShapeNode?
-    private var label : SKLabelNode?
-    // MARK: Init
-    override init(size: CGSize) {
-        super.init(size: size)
-        let ball = initBall(bounds: UIScreen.main.bounds)
-        addChild(ball)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    func touchDown(atPoint pos: CGPoint) {
-        if let n = self.ball?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-            print("TOUCH")
-        }
-    }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
-        
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
-    }
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-           for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
-       }
-       
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-           for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-       }
-   
-   override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-       for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-   }
-    
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
-    }
-    // MARK: Methods
-    func initBall(bounds: CGRect) -> SKShapeNode {
-        ball = SKShapeNode(circleOfRadius: 40)
-        ball.fillColor = .red
-        
-        let xMid = bounds.maxX / 2
-        let yMid = bounds.maxY / 2
-        ball.position = CGPoint(x: xMid, y: yMid)
-        return ball
-    }*/
     
     
 }
