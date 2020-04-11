@@ -11,16 +11,86 @@ import SpriteKit
 import CoreGraphics
 import GameplayKit
 
+
+
+
 class GameScene: SKScene {
     
     // MARK: Properties
     weak var viewController: GameViewController!
     
-    
-    
     // This is the list of nodes displayed on the screen
     private var nodeList: [SKShapeNode] = []
     
+    private var duckList: [SKNode] = []
+    //private var duckCords: [CGPoint] = []
+    
+    
+    override func didMove(to view: SKView) {
+        // if difficulity == easy => forDuration: 7
+        // if difficulity == medium => forDuration: 5
+        // if difficulity == hard => forDuration: 2
+        
+        run(SKAction.repeatForever(
+          SKAction.sequence([
+            SKAction.run(duckSpawn),
+            SKAction.wait(forDuration: 1)
+            ])
+        ))
+    }
+    
+    // Simple touch
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let w = (self.size.width + self.size.height) * 0.01
+        for t in touches {
+            self.nodeList.append(SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3))
+            self.scoreBoard()
+            self.touchDown(atPoint: t.location(in: self))
+            
+            let location = t.location(in: self)
+            let touchedNodes = nodes(at: location)
+            
+            duckList = touchedNodes.filter { $0.name == "duck"}
+            
+            self.duckList.first?.removeFromParent()
+            //let frontTouchedNode = atPoint(location).name
+            //print(location)
+            //print(touchedNodes)
+            
+            
+            //print(t.location(in: self))
+            /*let touchedLoc = t.location(in: self)
+            if duckCords.contains(touchedLoc) {
+                print("HEJ")
+            }
+             print(touchedLoc)
+             */
+            
+            //print(duckCords)
+            //let touchedNode = self.atPoint(touchedLoc)
+            
+            
+            //print(touchedNode.name as Any)
+            //print(touchedLoc)
+        
+        }
+    }
+    
+    
+    
+    // Drag touch
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let w = (self.size.width + self.size.height) * 0.05
+        for t in touches {
+            self.nodeList.append(SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3))
+            self.scoreBoard()
+            self.touchDown(atPoint: t.location(in: self))
+        }
+    }
+
+        
+    
+    // The scoreboard, currently TODO, want to increment score based in successful hit
     func scoreBoard() {
         let oldScore = Int(viewController.score.text!)
         let newScore = oldScore! + 1
@@ -39,10 +109,10 @@ class GameScene: SKScene {
     
     func duckSpawn() {
         
-        // TODO: Find Duck sprite
         let duck = SKSpriteNode(color: UIColor.orange, size: CGSize(width: 40, height: 40))
-    
-        
+        duck.name = "duck"
+        //duck.isUserInteractionEnabled = true
+        // TODO: Find Duck sprite
         let randomYCord = random(min: screenSize.minY, max: screenSize.maxY)
         
         // Want to spawn from furthes X axis but random Y axis
@@ -50,27 +120,20 @@ class GameScene: SKScene {
         addChild(duck)
         
         // Random movement speed of the ducks
-        let speed = random(min: CGFloat(1.0), max: CGFloat(3.0))
+        let speed = random(min: CGFloat(4.0), max: CGFloat(8.0))
         
         // Currently moving them all towards origo
-        let randXEnd = random(min: screenSize.minX, max: screenSize.maxX)
+        //let randYEnd = random(min: screenSize.minX, max: screenSize.maxX)
         // Changed to sprites go towards a random X point, however same Y as they spawned
-        let movement = SKAction.move(to: CGPoint(x: randXEnd, y: randomYCord), duration: TimeInterval(speed))
-        
+        let movement = SKAction.move(to: CGPoint(x: 0, y: randomYCord), duration: TimeInterval(speed))
+        //duckCords.append(CGPoint(x: 0, y: randomYCord))
         // Remove from screen if outside
         let doneMove = SKAction.removeFromParent()
-        duck.run(SKAction.sequence([movement, doneMove]))        
+        duck.run(SKAction.sequence([movement, doneMove]))
     }
     
     
-    override func didMove(to view: SKView) {
-        run(SKAction.repeatForever(
-          SKAction.sequence([
-            SKAction.run(duckSpawn),
-            SKAction.wait(forDuration: 1.0)
-            ])
-        ))
-    }
+    
     
     
     func touchDown(atPoint pos : CGPoint) {
@@ -85,23 +148,7 @@ class GameScene: SKScene {
         
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let w = (self.size.width + self.size.height) * 0.05
-        for t in touches {
-            self.nodeList.append(SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3))
-            self.scoreBoard()
-            self.touchDown(atPoint: t.location(in: self))
-        }
-    }
-       
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let w = (self.size.width + self.size.height) * 0.05
-        for t in touches {
-            self.nodeList.append(SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3))
-            self.scoreBoard()
-            self.touchDown(atPoint: t.location(in: self))
-        }
-    }
+
     
     /*func touchMoved(toPoint pos : CGPoint) {
         if let n = self.spinnyNode?.copy() as! SKShapeNode? {

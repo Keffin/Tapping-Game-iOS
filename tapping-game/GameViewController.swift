@@ -36,6 +36,8 @@ class GameViewController: UIViewController {
             scene = SKScene(fileNamed: "GameScene") as? GameScene
             scene.viewController = self
             
+            // Set parent scene to enable interaction
+            scene.isUserInteractionEnabled = true
             
             // This will set the bottom left corner to our origin, extremely important
             scene.anchorPoint = CGPoint(x: 0, y: 0)
