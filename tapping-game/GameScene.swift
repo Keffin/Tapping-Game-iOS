@@ -24,30 +24,29 @@ class GameScene: SKScene {
     
     private var duckList: [SKNode] = []
     //private var duckCords: [CGPoint] = []
-    private var bomb: SKSpriteNode? = SKSpriteNode()
+    private var bomb: SKSpriteNode? = nil //SKSpriteNode()
     private var bombList: [SKNode] = []
-    private var hasSpawnedBomb: Bool = false
+    //private var hasSpawnedBomb: Bool = false
     
+    private var shouldSpawnBomb: Bool = false
     
     override func update(_ currentTime: TimeInterval) {
         // Change this to 10 later
         super.update(currentTime)
         
         
-        if hasSpawnedBomb {
-            return
-        }
-        if !hasSpawnedBomb && Int(viewController.score.text!)! % 5 == 0 && Int(viewController.score.text!) != 0 {
-            hasSpawnedBomb = true
-            bomb = SKSpriteNode(color: UIColor.blue, size: CGSize(width: 20, height: 20))
-            bomb!.name = "bomb"
+        if shouldSpawnBomb {
+            shouldSpawnBomb = false
+            self.bomb = SKSpriteNode(color: UIColor.blue, size: CGSize(width: 20, height: 20))
+            self.bomb!.name = "bomb"
             let xCord = screenSize.minX + 20
             let yCord = screenSize.minY + 20
-            bomb!.position = CGPoint(x: xCord, y: yCord)
+            self.bomb!.position = CGPoint(x: xCord, y: yCord)
             // Sets bomb to be front view all the time
-            bomb!.zPosition = 1
-            addChild(bomb!)
+            self.bomb!.zPosition = 1
+            addChild(self.bomb!)
         }
+        
         
     }
     
@@ -85,12 +84,14 @@ class GameScene: SKScene {
             //bombList = touchedNodes.filter { $0.name == "bomb" }
             
             // Since bomb has highest z position this will always only return bomb type if bomb node is touched
-            let bombNode = atPoint(location)
+            //let bombNode = atPoint(location)
             
-            /*if bombNode.name == "bomb" {
+            //let touchedNode = atPoint(location)
+            
+            /*if touchedNode.name == "bomb" {
                 self.bomb!.position = location
+                //print(self.bomb!.position)
             }*/
-            
             
             if !duckList.isEmpty {
                 self.duckList.first?.removeFromParent()
@@ -119,9 +120,14 @@ class GameScene: SKScene {
             let location = touch.location(in: self)
             
             if self.bomb != nil {
+                self.bomb!.position.x = location.x
+                self.bomb!.position.y = location.y
+            }
+            
+            /*if self.bomb != nil {
                 bomb!.position.x = location.x
                 bomb!.position.y = location.y
-            }
+            }*/
             
             
             
@@ -132,11 +138,22 @@ class GameScene: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         //super.touchesEnded(touches, with: event)
         //blastDucks()
-        if self.bomb != nil {
-            print("yahooo")
-            self.bomb = nil
-            self.bomb?.removeFromParent()
+        for touch in touches {
+            let location = touch.location(in: self)
+            let touchedNode = atPoint(location)
+            if touchedNode.name == "bomb" {
+                if self.bomb != nil  {
+                     
+                    // "Explode" after 2.0 seconds
+                    self.bomb?.run(SKAction.sequence([SKAction.wait(forDuration: 2.0),
+                                                      SKAction.removeFromParent()
+                                                    ]))
+                    self.bomb = nil
+                }
+            }
+            
         }
+        
     }
     
     // Drag touch
@@ -156,6 +173,9 @@ class GameScene: SKScene {
         let oldScore = Int(viewController.score.text!)
         let newScore = oldScore! + 1
         viewController.score.text = String(newScore)
+        if Int(viewController.score.text!)! % 10 == 0 && Int(viewController.score.text!) != 0 && self.bomb == nil {
+            self.shouldSpawnBomb = true
+        }
     }
     
     
