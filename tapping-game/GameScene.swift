@@ -101,18 +101,8 @@ class GameScene: SKScene {
         }
     }
     
-    func blastDucks() {
-        let xAxisScale = Int(bomb!.position.x + 25)
-        let yAxisScale = Int(bomb!.position.y + 25)
-        let currentX = Int(bomb!.position.x)
-        let currentY = Int(bomb!.position.y)
-        for ducksXAxis in currentX..<xAxisScale {
-            print("X axis scale \(ducksXAxis)")
-        }
-        for duckYAxis in currentY..<yAxisScale {
-            print("Y axis scale \(duckYAxis)")
-        }
-    }
+   
+    
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         //super.touchesMoved(<#T##touches: Set<UITouch>##Set<UITouch>#>, with: <#T##UIEvent?#>)
@@ -123,15 +113,6 @@ class GameScene: SKScene {
                 self.bomb!.position.x = location.x
                 self.bomb!.position.y = location.y
             }
-            
-            /*if self.bomb != nil {
-                bomb!.position.x = location.x
-                bomb!.position.y = location.y
-            }*/
-            
-            
-            
-            //blastDucks()
         }
     }
     
@@ -143,11 +124,38 @@ class GameScene: SKScene {
             let touchedNode = atPoint(location)
             if touchedNode.name == "bomb" {
                 if self.bomb != nil  {
-                     
+                    
                     // "Explode" after 2.0 seconds
                     self.bomb?.run(SKAction.sequence([SKAction.wait(forDuration: 2.0),
                                                       SKAction.removeFromParent()
                                                     ]))
+                    
+                    let currentX = Int(self.bomb!.position.x)
+                    let currentY = Int(self.bomb!.position.y)
+                    for currentX in currentX...Int(currentX+50) {
+                        for currentY in currentY...Int(currentY+50) {
+                            let pX = CGFloat(currentX)
+                            let pY = CGFloat(currentY)
+                            let p = CGPoint(x: pX, y: pY)
+                            let nodeLoc = atPoint(p)
+                            if nodeLoc.name == "duck" {
+                                nodeLoc.removeFromParent()
+                                self.scoreBoard()
+                            }
+                        }
+                    }
+                    for currentX in stride(from: currentX, through: currentX-50, by: -1) {
+                        for currentY in stride(from: currentY, through: currentY-50, by: -1) {
+                            let pX = CGFloat(currentX)
+                            let pY = CGFloat(currentY)
+                            let p = CGPoint(x: pX, y: pY)
+                            let nodeLoc = atPoint(p)
+                            if nodeLoc.name == "duck" {
+                                nodeLoc.removeFromParent()
+                                self.scoreBoard()
+                            }
+                        }
+                    }
                     self.bomb = nil
                 }
             }
@@ -156,15 +164,6 @@ class GameScene: SKScene {
         
     }
     
-    // Drag touch
-    /*override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let w = (self.size.width + self.size.height) * 0.05
-        for t in touches {
-            self.nodeList.append(SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3))
-            self.scoreBoard()
-            self.touchDown(atPoint: t.location(in: self))
-        }
-    }*/
 
         
     
