@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 import CoreGraphics
 import GameplayKit
-
+import AVFoundation
 
 
 
@@ -29,15 +29,22 @@ class GameScene: SKScene {
     //private var hasSpawnedBomb: Bool = false
     
     private var shouldSpawnBomb: Bool = false
+    private static var backgroundMusicPlayer: AVAudioPlayer!
     
+    let blastSound = SKAction.playSoundFileNamed("pling", waitForCompletion: false)
+    let tickSound = SKAction.playSoundFileNamed("tick", waitForCompletion: false)
+    let explodeSound = SKAction.playSoundFileNamed("explode", waitForCompletion: false)
     override func update(_ currentTime: TimeInterval) {
         // Change this to 10 later
         super.update(currentTime)
         
         
+        
         if shouldSpawnBomb {
             shouldSpawnBomb = false
-            self.bomb = SKSpriteNode(color: UIColor.blue, size: CGSize(width: 20, height: 20))
+            self.bomb = SKSpriteNode(imageNamed: "bomb")
+            self.bomb!.size = CGSize(width: 25, height: 25)
+            //self.bomb = SKSpriteNode(color: UIColor.blue, size: CGSize(width: 20, height: 20))
             self.bomb!.name = "bomb"
             let xCord = screenSize.minX + 20
             let yCord = screenSize.minY + 20
@@ -45,16 +52,19 @@ class GameScene: SKScene {
             // Sets bomb to be front view all the time
             self.bomb!.zPosition = 1
             addChild(self.bomb!)
+            run(blastSound)
         }
         
         
     }
     
+    
+    
+    
     override func didMove(to view: SKView) {
         // if difficulity == easy => forDuration: 7
         // if difficulity == medium => forDuration: 5
         // if difficulity == hard => forDuration: 2
-        
         
         
         run(SKAction.repeatForever(
@@ -105,7 +115,7 @@ class GameScene: SKScene {
     
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        //super.touchesMoved(<#T##touches: Set<UITouch>##Set<UITouch>#>, with: <#T##UIEvent?#>)
+        
         for touch in touches {
             let location = touch.location(in: self)
             
@@ -126,8 +136,10 @@ class GameScene: SKScene {
                 if self.bomb != nil  {
                     
                     // "Explode" after 2.0 seconds
-                    self.bomb?.run(SKAction.sequence([SKAction.wait(forDuration: 2.0),
-                                                      SKAction.removeFromParent()
+                    //run(tickSound)
+                    self.bomb?.run(SKAction.sequence([SKAction.wait(forDuration: 0.3),
+                                                      SKAction.removeFromParent(),
+                                                      explodeSound
                                                     ]))
                     
                     let currentX = Int(self.bomb!.position.x)
@@ -151,11 +163,40 @@ class GameScene: SKScene {
                             let p = CGPoint(x: pX, y: pY)
                             let nodeLoc = atPoint(p)
                             if nodeLoc.name == "duck" {
+                                /*nodeLoc.run(SKAction.sequence([SKAction.wait(forDuration: 2.0),
+                                                       SKAction.removeFromParent()
+                                
+                                ]))*/
                                 nodeLoc.removeFromParent()
                                 self.scoreBoard()
                             }
                         }
                     }
+                    /*for currentY in currentY...Int(currentY+50) {
+                        for currentX in currentX...Int(currentX+50) {
+                            let pX = CGFloat(currentX)
+                            let pY = CGFloat(currentY)
+                            let p = CGPoint(x: pX, y: pY)
+                            let nodeLoc = atPoint(p)
+                            if nodeLoc.name == "duck" {
+                                nodeLoc.removeFromParent()
+                                self.scoreBoard()
+                            }
+                        }
+                    }
+                    for currentY in stride(from: currentY, through: currentY-50, by: -1) {
+                        for currentX in stride(from: currentX, through: currentX-50, by: -1) {
+                            let pX = CGFloat(currentX)
+                            let pY = CGFloat(currentY)
+                            let p = CGPoint(x: pX, y: pY)
+                            let nodeLoc = atPoint(p)
+                            if nodeLoc.name == "duck" {
+                                nodeLoc.removeFromParent()
+                                self.scoreBoard()
+                            }
+                        }
+                    }*/
+                    
                     self.bomb = nil
                 }
             }
@@ -189,12 +230,13 @@ class GameScene: SKScene {
     
     func duckSpawn() {
         
-        let duck = SKSpriteNode(color: UIColor.orange, size: CGSize(width: 40, height: 40))
+        //let duck = SKSpriteNode(color: UIColor.orange, size: CGSize(width: 40, height: 40))
+        let duck = SKSpriteNode(imageNamed: "ghost")
         duck.name = "duck"
-        
+        duck.size = CGSize(width: 40, height: 40)
         
         // TODO: Find Duck sprite
-        let randomYCord = random(min: screenSize.minY, max: screenSize.maxY)
+        let randomYCord = random(min: screenSize.minY+50, max: screenSize.maxY-20)
         
         // Want to spawn from furthes X axis but random Y axis
         duck.position = CGPoint(x: screenSize.maxX, y: randomYCord)

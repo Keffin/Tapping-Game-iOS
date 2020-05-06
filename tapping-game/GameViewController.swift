@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 import CoreGraphics
-
+import AVFoundation
 
 // Global Const, current workaround
 // TODO: Change
@@ -25,11 +25,22 @@ class GameViewController: UIViewController {
     @IBOutlet weak var score: UITextField!
     
     var scene: GameScene!
-    
+    var audioPlayer = AVAudioPlayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         hideNavBar()
+        
+        let sound = Bundle.main.path(forResource: "bgsound", ofType: "wav")
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!))
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+            audioPlayer.play()
+        } catch {
+            print(error)
+        }
         
         if let view = self.view as! SKView? {
             // SpriteKit Scene
@@ -53,6 +64,7 @@ class GameViewController: UIViewController {
             view.ignoresSiblingOrder = true
             view.showsFPS = true
             view.showsNodeCount = true
+            
         }
         
         //skView = self.view as? SKView
