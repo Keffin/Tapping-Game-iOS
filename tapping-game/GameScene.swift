@@ -43,11 +43,11 @@ class GameScene: SKScene {
         if shouldSpawnBomb {
             shouldSpawnBomb = false
             self.bomb = SKSpriteNode(imageNamed: "bomb")
-            self.bomb!.size = CGSize(width: 25, height: 25)
+            self.bomb!.size = CGSize(width: 40, height: 40)
             //self.bomb = SKSpriteNode(color: UIColor.blue, size: CGSize(width: 20, height: 20))
             self.bomb!.name = "bomb"
-            let xCord = screenSize.minX + 20
-            let yCord = screenSize.minY + 20
+            let xCord = screenSize.minX + 38
+            let yCord = screenSize.minY + 30
             self.bomb!.position = CGPoint(x: xCord, y: yCord)
             // Sets bomb to be front view all the time
             self.bomb!.zPosition = 1
@@ -77,53 +77,55 @@ class GameScene: SKScene {
     
     // Simple touch
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
         let w = (self.size.width + self.size.height) * 0.01
+        
         for t in touches {
             self.nodeList.append(SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3))
             
-            self.touchDown(atPoint: t.location(in: self))
+            // osäker om detta?
+            //self.touchDown(atPoint: t.location(in: self))
             
             let location = t.location(in: self)
             let touchedNodes = nodes(at: location)
             
+            let touchedBomb = atPoint(location)
             
-            // Checks if the touched location is a node with the property name "duck", in that case we remove it
-            
-            duckList = touchedNodes.filter { $0.name == "duck"}
-            
-            //bombList = touchedNodes.filter { $0.name == "bomb" }
-            
-            // Since bomb has highest z position this will always only return bomb type if bomb node is touched
-            //let bombNode = atPoint(location)
-            
-            //let touchedNode = atPoint(location)
-            
-            /*if touchedNode.name == "bomb" {
-                self.bomb!.position = location
-                //print(self.bomb!.position)
-            }*/
-            
-            if !duckList.isEmpty {
-                self.duckList.first?.removeFromParent()
-                self.scoreBoard()
+            if touchedBomb.name != "bomb" {
+                // Checks if the touched location is a node with the property name "duck", in that case we remove it
+                duckList = touchedNodes.filter { $0.name == "duck"}
+                
+                if !duckList.isEmpty {
+                    self.duckList.first?.removeFromParent()
+                    self.scoreBoard()
+                }
             }
+            
             
         }
     }
     
    
-    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.bomb = nil
+    }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
         
-        for touch in touches {
-            let location = touch.location(in: self)
+        if self.bomb != nil {
+            //let location = touches.first!.location(in: self)
             
-            if self.bomb != nil {
-                self.bomb!.position.x = location.x
-                self.bomb!.position.y = location.y
+            for touch in touches {
+                let loc = touch.location(in: self)
+                let touchedBomb = atPoint(loc)
+                if touchedBomb.name == "bomb" {
+                    self.bomb!.position = loc
+                }
             }
         }
+        
+    
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -163,16 +165,13 @@ class GameScene: SKScene {
                             let p = CGPoint(x: pX, y: pY)
                             let nodeLoc = atPoint(p)
                             if nodeLoc.name == "duck" {
-                                /*nodeLoc.run(SKAction.sequence([SKAction.wait(forDuration: 2.0),
-                                                       SKAction.removeFromParent()
                                 
-                                ]))*/
                                 nodeLoc.removeFromParent()
                                 self.scoreBoard()
                             }
                         }
                     }
-                    /*for currentY in currentY...Int(currentY+50) {
+                    for currentY in currentY...Int(currentY+50) {
                         for currentX in currentX...Int(currentX+50) {
                             let pX = CGFloat(currentX)
                             let pY = CGFloat(currentY)
@@ -195,9 +194,10 @@ class GameScene: SKScene {
                                 self.scoreBoard()
                             }
                         }
-                    }*/
+                    }
                     
                     self.bomb = nil
+                    shouldSpawnBomb = false
                 }
             }
             
@@ -233,7 +233,7 @@ class GameScene: SKScene {
         //let duck = SKSpriteNode(color: UIColor.orange, size: CGSize(width: 40, height: 40))
         let duck = SKSpriteNode(imageNamed: "ghost")
         duck.name = "duck"
-        duck.size = CGSize(width: 40, height: 40)
+        duck.size = CGSize(width: 50, height: 50)
         
         // TODO: Find Duck sprite
         let randomYCord = random(min: screenSize.minY+50, max: screenSize.maxY-20)
@@ -259,11 +259,14 @@ class GameScene: SKScene {
     
     
     func touchDown(atPoint pos : CGPoint) {
+        
         if let n = self.nodeList.first {
-            n.position = pos
-            //n.strokeColor = SKColor.green
-            self.nodeList.first?.removeFromParent()
-            self.addChild(n)
+            if n.name != "bomb" {
+                n.position = pos
+                //n.strokeColor = SKColor.green
+                self.nodeList.first?.removeFromParent()
+                self.addChild(n)
+            }
             
             
         }
@@ -272,19 +275,6 @@ class GameScene: SKScene {
     
 
     
-    
-   
-    /*override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }*/
     
     
     
