@@ -27,6 +27,9 @@ class GameViewController: UIViewController {
     var scene: GameScene!
     var audioPlayer = AVAudioPlayer()
     
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         hideNavBar()
@@ -44,6 +47,7 @@ class GameViewController: UIViewController {
         
         if let view = self.view as! SKView? {
             // SpriteKit Scene
+
             scene = SKScene(fileNamed: "GameScene") as? GameScene
             scene.viewController = self
             
@@ -56,22 +60,13 @@ class GameViewController: UIViewController {
             scene.size = view.bounds.size
             view.presentScene(scene)
             
-            /*if let scene = SKScene(fileNamed: "GameScene") {
-                scene.scaleMode = .aspectFill
-                view.presentScene(scene)
-                scene.viewController  = self
-            }*/
+            
+            
             view.ignoresSiblingOrder = true
             view.showsFPS = true
             view.showsNodeCount = true
             
         }
-        
-        //skView = self.view as? SKView
-        //gameScreen = GameScreen(size: skView.bounds.size)
-        //skView.presentScene(gameScreen)
-        
-        // Do any additional setup after loading the view.
     }
     
     
@@ -81,17 +76,5 @@ class GameViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
     }
 
-    
-
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

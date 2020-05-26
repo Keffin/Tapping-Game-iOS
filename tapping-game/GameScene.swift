@@ -21,19 +21,20 @@ class GameScene: SKScene {
     
     // This is the list of nodes displayed on the screen
     private var nodeList: [SKShapeNode] = []
-    
     private var duckList: [SKNode] = []
-    //private var duckCords: [CGPoint] = []
-    private var bomb: SKSpriteNode? = nil //SKSpriteNode()
+    private var bomb: SKSpriteNode? = nil
     private var bombList: [SKNode] = []
-    //private var hasSpawnedBomb: Bool = false
-    
     private var shouldSpawnBomb: Bool = false
     private static var backgroundMusicPlayer: AVAudioPlayer!
+    
+    
+    
+    
     
     let blastSound = SKAction.playSoundFileNamed("pling", waitForCompletion: false)
     let tickSound = SKAction.playSoundFileNamed("tick", waitForCompletion: false)
     let explodeSound = SKAction.playSoundFileNamed("explode", waitForCompletion: false)
+    
     override func update(_ currentTime: TimeInterval) {
         // Change this to 10 later
         super.update(currentTime)
@@ -55,10 +56,9 @@ class GameScene: SKScene {
             run(blastSound)
         }
         
-        
     }
     
-    
+   
     
     
     override func didMove(to view: SKView) {
@@ -66,6 +66,11 @@ class GameScene: SKScene {
         // if difficulity == medium => forDuration: 5
         // if difficulity == hard => forDuration: 2
         
+        //let btnNode = SKShapeNode(rect: CGRect(x: 30, y: 30, width: 55, height: 55))
+        let btnNode = SKSpriteNode(color: .red, size: CGSize(width: 60, height: 30))
+        btnNode.position = CGPoint(x: (screenSize.maxX / 2), y: screenSize.minY + 30)
+        btnNode.name = "end"
+        addChild(btnNode)
         
         run(SKAction.repeatForever(
           SKAction.sequence([
@@ -101,7 +106,6 @@ class GameScene: SKScene {
                 }
             }
             
-            
         }
     }
     
@@ -128,12 +132,27 @@ class GameScene: SKScene {
     
     }
     
+   
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         //super.touchesEnded(touches, with: event)
         //blastDucks()
         for touch in touches {
+            
+            
+            
             let location = touch.location(in: self)
             let touchedNode = atPoint(location)
+            
+            if touchedNode.name == "end" {
+                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let endViewController = storyBoard.instantiateViewController(identifier: "endview") as! EndViewController
+                endViewController.modalPresentationStyle = .fullScreen
+                self.view?.window?.rootViewController?.present(endViewController, animated: true, completion: nil)
+                self.viewController.audioPlayer.pause()
+            }
+            
+            
             if touchedNode.name == "bomb" {
                 if self.bomb != nil  {
                     
@@ -171,7 +190,7 @@ class GameScene: SKScene {
                             }
                         }
                     }
-                    for currentY in currentY...Int(currentY+50) {
+                    /*for currentY in currentY...Int(currentY+50) {
                         for currentX in currentX...Int(currentX+50) {
                             let pX = CGFloat(currentX)
                             let pY = CGFloat(currentY)
@@ -194,7 +213,7 @@ class GameScene: SKScene {
                                 self.scoreBoard()
                             }
                         }
-                    }
+                    }*/
                     
                     self.bomb = nil
                     shouldSpawnBomb = false
