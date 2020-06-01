@@ -1,0 +1,36 @@
+
+/* Class = "UILabel"; text = "Final Score"; ObjectID = "1tk-ZI-HDw"; */
+"1tk-ZI-HDw.text" = "Final Score";
+
+/* Class = "UIButton"; normalTitle = "Play!"; ObjectID = "69K-h3-N9S"; */
+"69K-h3-N9S.normalTitle" = "Play!";
+
+/* Class = "UILabel"; text = "Good Luck!"; ObjectID = "8wc-7g-9Zn"; */
+"8wc-7g-9Zn.text" = "Good Luck!";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Fac-s6-LH5"; */
+"Fac-s6-LH5.text" = "Label";
+
+/* Class = "UILabel"; text = "Welcome To The Tapping-Game"; ObjectID = "HKG-jb-JUl"; */
+"HKG-jb-JUl.text" = "Welcome To The Tapping-Game";
+
+/* Class = "UIBarButtonItem"; title = "Help"; ObjectID = "Hg7-qm-3bg"; */
+"Hg7-qm-3bg.title" = "Help";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Lj4-Z8-czO"; */
+"Lj4-Z8-czO.text" = "Label";
+
+/* Class = "UILabel"; text = "Highscore"; ObjectID = "TqL-UY-mRT"; */
+"TqL-UY-mRT.text" = "Highscore";
+
+/* Class = "UILabel"; text = "Tutorial"; ObjectID = "VtK-iP-PDO"; */
+"VtK-iP-PDO.text" = "Tutorial";
+
+/* Class = "UITextField"; text = "0"; ObjectID = "YuB-D8-YNM"; */
+"YuB-D8-YNM.text" = "0";
+
+/* Class = "UIButton"; normalTitle = "Restart"; ObjectID = "Ywr-wk-jnx"; */
+"Ywr-wk-jnx.normalTitle" = "Restart";
+
+/* Class = "UITextView"; text = "An arbitrary amount of ghosts will spawn.\n\nYour job is to exterminate them by tapping on them. \n\nEach time you achieve 10 points a tool will spawn for you.\n\nTo use the tool you must tap it and hold on to it while dragging and dropping it. \nOnce dropped, the tools will exterminate ghosts in its radius.\n\nTo end the game, press the red button"; ObjectID = "fdo-8T-NhG"; */
+"fdo-8T-NhG.text" = "An arbitrary amount of ghosts will spawn.\n\nYour job is to exterminate them by tapping on them. \n\nEach time you achieve 10 points a tool will spawn for you.\n\nTo use the tool you must tap it and hold on to it while dragging and dropping it. \nOnce dropped, the tools will exterminate ghosts in its radius.\n\nTo end the game, press the red button";

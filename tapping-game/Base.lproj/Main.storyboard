@@ -15,26 +15,56 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lj4-Z8-czO">
-                                <rect key="frame" x="166.5" y="64" width="42" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome To The Tapping-Game" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKG-jb-JUl">
+                                <rect key="frame" x="16" y="64" width="343" height="100"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="emv-47-Z9o"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Highscore" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TqL-UY-mRT">
+                                <rect key="frame" x="16" y="266" width="343" height="31"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lj4-Z8-czO">
+                                <rect key="frame" x="166.5" y="323.5" width="42" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="69K-h3-N9S">
-                                <rect key="frame" x="171" y="318.5" width="33" height="30"/>
-                                <state key="normal" title="Play!"/>
+                                <rect key="frame" x="16" y="550" width="343" height="97"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
+                                <state key="normal" title="Play!">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
-                                    <segue destination="Uua-4P-QSg" kind="show" id="4k6-SO-xf6"/>
+                                    <action selector="playButton:" destination="8iz-hn-nS9" eventType="touchUpInside" id="Y2e-2L-3Rg"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="69K-h3-N9S" firstAttribute="centerX" secondItem="aFv-sh-2yn" secondAttribute="centerX" id="C3y-1I-lad"/>
-                            <constraint firstItem="Lj4-Z8-czO" firstAttribute="centerX" secondItem="aFv-sh-2yn" secondAttribute="centerX" id="HwQ-i4-GKe"/>
-                            <constraint firstItem="Lj4-Z8-czO" firstAttribute="top" secondItem="lpW-ga-c4x" secondAttribute="top" constant="20" id="Or2-AW-Vbp"/>
-                            <constraint firstItem="69K-h3-N9S" firstAttribute="centerY" secondItem="aFv-sh-2yn" secondAttribute="centerY" id="bhu-O3-Msa"/>
+                            <constraint firstItem="TqL-UY-mRT" firstAttribute="top" secondItem="HKG-jb-JUl" secondAttribute="bottom" constant="102" id="7mM-vK-fc2"/>
+                            <constraint firstItem="lpW-ga-c4x" firstAttribute="trailing" secondItem="HKG-jb-JUl" secondAttribute="trailing" constant="16" id="HPX-MP-2IZ"/>
+                            <constraint firstItem="HKG-jb-JUl" firstAttribute="top" secondItem="lpW-ga-c4x" secondAttribute="top" constant="20" id="Kb5-qD-pq4"/>
+                            <constraint firstItem="Lj4-Z8-czO" firstAttribute="centerX" secondItem="aFv-sh-2yn" secondAttribute="centerX" id="R4p-Bg-pY9"/>
+                            <constraint firstItem="HKG-jb-JUl" firstAttribute="leading" secondItem="lpW-ga-c4x" secondAttribute="leading" constant="16" id="UGp-82-Uj3"/>
+                            <constraint firstItem="lpW-ga-c4x" firstAttribute="trailing" secondItem="69K-h3-N9S" secondAttribute="trailing" constant="16" id="USd-SJ-P5b"/>
+                            <constraint firstItem="69K-h3-N9S" firstAttribute="top" secondItem="Lj4-Z8-czO" secondAttribute="bottom" constant="206" id="cfs-Gb-1n7"/>
+                            <constraint firstItem="lpW-ga-c4x" firstAttribute="bottom" secondItem="69K-h3-N9S" secondAttribute="bottom" constant="20" id="da0-GJ-Haq"/>
+                            <constraint firstItem="Lj4-Z8-czO" firstAttribute="centerY" secondItem="aFv-sh-2yn" secondAttribute="centerY" id="ehM-pm-dBA"/>
+                            <constraint firstItem="69K-h3-N9S" firstAttribute="leading" secondItem="lpW-ga-c4x" secondAttribute="leading" constant="16" id="fo2-mP-C2N"/>
+                            <constraint firstItem="TqL-UY-mRT" firstAttribute="leading" secondItem="lpW-ga-c4x" secondAttribute="leading" constant="16" id="gi9-Ql-tWO"/>
+                            <constraint firstItem="Lj4-Z8-czO" firstAttribute="top" secondItem="TqL-UY-mRT" secondAttribute="bottom" constant="26.5" id="mpQ-gZ-gC0"/>
+                            <constraint firstItem="lpW-ga-c4x" firstAttribute="trailing" secondItem="TqL-UY-mRT" secondAttribute="trailing" constant="16" id="zRq-dG-lVo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lpW-ga-c4x"/>
                     </view>
@@ -45,10 +75,13 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="score" destination="Lj4-Z8-czO" id="U1Z-CO-4ip"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YIc-Dy-NPJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2890" y="-201"/>
+            <point key="canvasLocation" x="2888.8000000000002" y="-201.04947526236884"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="YPk-uy-jyr">
@@ -58,21 +91,51 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VtK-iP-PDO">
-                                <rect key="frame" x="165.5" y="64" width="44" height="44"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tutorial" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VtK-iP-PDO">
+                                <rect key="frame" x="146" y="64" width="82" height="20"/>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fdo-8T-NhG">
+                                <rect key="frame" x="41" y="93" width="292" height="429"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="5PH-uX-vIa"/>
-                                    <constraint firstAttribute="width" constant="44" id="WPQ-Da-PD3"/>
+                                    <constraint firstAttribute="height" constant="429" id="oXb-qW-Dts"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <string key="text">An arbitrary amount of ghosts will spawn.
+
+Your job is to exterminate them by tapping on them. 
+
+Each time you achieve 10 points a tool will spawn for you.
+
+To use the tool you must tap it and hold on to it while dragging and dropping it. 
+Once dropped, the tools will exterminate ghosts in its radius.
+
+To end the game, press the red button</string>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Good Luck!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8wc-7g-9Zn">
+                                <rect key="frame" x="41" y="561" width="292" height="26"/>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="VtK-iP-PDO" firstAttribute="centerX" secondItem="PFx-K4-ky0" secondAttribute="centerX" id="P9g-o9-2pO"/>
-                            <constraint firstItem="VtK-iP-PDO" firstAttribute="top" secondItem="hqT-a6-iJF" secondAttribute="top" constant="20" id="T3X-3n-3cW"/>
+                            <constraint firstItem="fdo-8T-NhG" firstAttribute="trailing" secondItem="8wc-7g-9Zn" secondAttribute="trailing" id="3cZ-zd-48Q"/>
+                            <constraint firstItem="8wc-7g-9Zn" firstAttribute="top" secondItem="fdo-8T-NhG" secondAttribute="bottom" constant="39" id="4ra-co-qhB"/>
+                            <constraint firstItem="hqT-a6-iJF" firstAttribute="trailing" secondItem="VtK-iP-PDO" secondAttribute="trailing" constant="147" id="5eO-Ir-YZS"/>
+                            <constraint firstItem="hqT-a6-iJF" firstAttribute="trailing" secondItem="fdo-8T-NhG" secondAttribute="trailing" constant="42" id="C6n-D0-nkE"/>
+                            <constraint firstItem="fdo-8T-NhG" firstAttribute="top" secondItem="VtK-iP-PDO" secondAttribute="bottom" constant="9" id="PQc-LF-kIB"/>
+                            <constraint firstItem="VtK-iP-PDO" firstAttribute="top" secondItem="hqT-a6-iJF" secondAttribute="top" constant="20" id="Qz3-Ss-NtJ"/>
+                            <constraint firstItem="fdo-8T-NhG" firstAttribute="top" secondItem="VtK-iP-PDO" secondAttribute="bottom" constant="9" id="Rm9-ai-Qxa"/>
+                            <constraint firstItem="fdo-8T-NhG" firstAttribute="leading" secondItem="8wc-7g-9Zn" secondAttribute="leading" id="VPd-rr-4Tj"/>
+                            <constraint firstItem="fdo-8T-NhG" firstAttribute="leading" secondItem="hqT-a6-iJF" secondAttribute="leading" constant="41" id="XnK-Yd-Daw"/>
+                            <constraint firstItem="VtK-iP-PDO" firstAttribute="leading" secondItem="hqT-a6-iJF" secondAttribute="leading" constant="146" id="mQz-kk-byt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hqT-a6-iJF"/>
                     </view>
@@ -80,18 +143,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SWf-yS-C7l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3849" y="-571"/>
+            <point key="canvasLocation" x="3848.8000000000002" y="-571.66416791604206"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="QqN-Nn-8bQ">
             <objects>
-                <viewController id="Uua-4P-QSg" customClass="GameViewController" customModule="tapping_game" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="gameview" id="Uua-4P-QSg" customClass="GameViewController" customModule="tapping_game" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7my-vY-MXn" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YuB-D8-YNM">
-                                <rect key="frame" x="169" y="64" width="37" height="34"/>
+                                <rect key="frame" x="169" y="20" width="37" height="34"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" notEnabled="YES"/>
                                 </accessibility>
@@ -123,15 +186,44 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fac-s6-LH5">
-                                <rect key="frame" x="166" y="323" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Final Score" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1tk-ZI-HDw">
+                                <rect key="frame" x="16" y="20" width="343" height="87"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fac-s6-LH5">
+                                <rect key="frame" x="166.5" y="323.5" width="42" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ywr-wk-jnx">
+                                <rect key="frame" x="16" y="560" width="343" height="87"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
+                                <state key="normal" title="Restart">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="restartGame:" destination="RKK-j2-N0L" eventType="touchUpInside" id="vm9-PF-pfH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="1tk-ZI-HDw" firstAttribute="leading" secondItem="ask-Va-Mql" secondAttribute="leading" constant="16" id="6uo-vf-O24"/>
+                            <constraint firstItem="Fac-s6-LH5" firstAttribute="centerY" secondItem="MVG-BG-VSG" secondAttribute="centerY" id="CEh-4f-A3u"/>
+                            <constraint firstItem="Fac-s6-LH5" firstAttribute="centerX" secondItem="MVG-BG-VSG" secondAttribute="centerX" id="DVD-Tm-jI6"/>
+                            <constraint firstItem="Fac-s6-LH5" firstAttribute="top" secondItem="1tk-ZI-HDw" secondAttribute="bottom" constant="216.5" id="YX6-pb-1e8"/>
+                            <constraint firstItem="Ywr-wk-jnx" firstAttribute="top" secondItem="Fac-s6-LH5" secondAttribute="bottom" constant="216" id="bde-7A-N1X"/>
+                            <constraint firstItem="1tk-ZI-HDw" firstAttribute="top" secondItem="ask-Va-Mql" secondAttribute="top" constant="20" id="fnB-cK-u9G"/>
+                            <constraint firstItem="ask-Va-Mql" firstAttribute="bottom" secondItem="Ywr-wk-jnx" secondAttribute="bottom" constant="20" id="iR2-hC-uOQ"/>
+                            <constraint firstItem="Ywr-wk-jnx" firstAttribute="leading" secondItem="ask-Va-Mql" secondAttribute="leading" constant="16" id="jnW-Ha-mKf"/>
+                            <constraint firstItem="ask-Va-Mql" firstAttribute="trailing" secondItem="Ywr-wk-jnx" secondAttribute="trailing" constant="16" id="vUp-Ws-FC4"/>
+                            <constraint firstItem="ask-Va-Mql" firstAttribute="trailing" secondItem="1tk-ZI-HDw" secondAttribute="trailing" constant="16" id="wuG-89-yCd"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ask-Va-Mql"/>
                     </view>
                     <navigationItem key="navigationItem" id="JY4-7T-Nv9"/>

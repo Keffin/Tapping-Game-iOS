@@ -28,6 +28,8 @@ class GameScene: SKScene {
     private static var backgroundMusicPlayer: AVAudioPlayer!
     
     
+    var highScore: String!
+    
     
     
     
@@ -44,7 +46,7 @@ class GameScene: SKScene {
         if shouldSpawnBomb {
             shouldSpawnBomb = false
             self.bomb = SKSpriteNode(imageNamed: "bomb")
-            self.bomb!.size = CGSize(width: 40, height: 40)
+            self.bomb!.size = CGSize(width: 50, height: 50)
             //self.bomb = SKSpriteNode(color: UIColor.blue, size: CGSize(width: 20, height: 20))
             self.bomb!.name = "bomb"
             let xCord = screenSize.minX + 38
@@ -67,10 +69,42 @@ class GameScene: SKScene {
         // if difficulity == hard => forDuration: 2
         
         //let btnNode = SKShapeNode(rect: CGRect(x: 30, y: 30, width: 55, height: 55))
-        let btnNode = SKSpriteNode(color: .red, size: CGSize(width: 60, height: 30))
-        btnNode.position = CGPoint(x: (screenSize.maxX / 2), y: screenSize.minY + 30)
-        btnNode.name = "end"
-        addChild(btnNode)
+        //let btnNode = SKSpriteNode(color: .red, size: CGSize(width: 60, height: 30))
+        
+        
+        let c = SKSpriteNode(color: .red, size: CGSize(width: 70, height: 40))
+        c.position = CGPoint(x: (screenSize.maxX / 2), y: screenSize.minY + 35)
+        
+        c.name = "end"
+        
+        let lbl = SKLabelNode(fontNamed: "Menlo")
+        lbl.text = "End Game"
+        lbl.fontSize = 14
+        lbl.fontColor = .black
+        //lbl.position = CGPoint(x: (screenSize.maxX / 2), y: screenSize.minY + 30)
+        lbl.horizontalAlignmentMode = .center
+        lbl.verticalAlignmentMode = .center
+        lbl.name = "end"
+        
+        c.addChild(lbl)
+        addChild(c)
+        
+        /*let btn = SKLabelNode(fontNamed: "menlo")
+        btn.text = "End Game"
+        
+        btn.fontSize = 13
+        btn.fontColor = .black
+        
+        btn.name = "end"
+        btn.position = CGPoint(x: (screenSize.maxX / 2), y: screenSize.minY + 30)
+        addChild(btn)*/
+        //btnNode.position = CGPoint(x: (screenSize.maxX / 2), y: screenSize.minY + 30)
+        //btnNode.name = "end"
+        //addChild(btnNode)
+        
+        let userDefaults = Foundation.UserDefaults.standard
+        let value = userDefaults.string(forKey: "Record")
+        highScore = value
         
         run(SKAction.repeatForever(
           SKAction.sequence([
@@ -105,6 +139,9 @@ class GameScene: SKScene {
                     self.scoreBoard()
                 }
             }
+            else {
+                self.bomb!.position = location
+            }
             
         }
     }
@@ -136,7 +173,7 @@ class GameScene: SKScene {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         //super.touchesEnded(touches, with: event)
-        //blastDucks()
+        
         for touch in touches {
             
             
@@ -145,11 +182,40 @@ class GameScene: SKScene {
             let touchedNode = atPoint(location)
             
             if touchedNode.name == "end" {
+                
+                
+                if highScore == nil {
+                    let savedString = viewController.score.text
+                    let userDefaults = Foundation.UserDefaults.standard
+                    userDefaults.set(savedString, forKey: "Record")
+                }
+                else {
+                    let score = Int(viewController.score.text!)
+                    let highestScore = Int(highScore)
+                    
+                    if score! > highestScore! {
+                        let savedString = viewController.score.text
+                        let userDefaults = Foundation.UserDefaults.standard
+                        userDefaults.set(savedString, forKey: "Record")
+                    }
+                }
+                
+                
+                
+                
+                
                 let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let endViewController = storyBoard.instantiateViewController(identifier: "endview") as! EndViewController
+                
                 endViewController.modalPresentationStyle = .fullScreen
-                self.view?.window?.rootViewController?.present(endViewController, animated: true, completion: nil)
+                
+                endViewController.finalScore = viewController.score.text
+                
+                self.viewController.navigationController?.pushViewController(endViewController, animated: true)
+                //self.view?.window?.rootViewController?.present(endViewController, animated: true, completion: ni)
+                //self.view?.window?.rootViewController?.present(endViewController, animated: true, completion: nil)
                 self.viewController.audioPlayer.pause()
+                
             }
             
             
@@ -190,7 +256,7 @@ class GameScene: SKScene {
                             }
                         }
                     }
-                    /*for currentY in currentY...Int(currentY+50) {
+                    for currentY in currentY...Int(currentY+50) {
                         for currentX in currentX...Int(currentX+50) {
                             let pX = CGFloat(currentX)
                             let pY = CGFloat(currentY)
@@ -213,7 +279,7 @@ class GameScene: SKScene {
                                 self.scoreBoard()
                             }
                         }
-                    }*/
+                    }
                     
                     self.bomb = nil
                     shouldSpawnBomb = false
@@ -225,9 +291,6 @@ class GameScene: SKScene {
     }
     
 
-        
-    
-    // The scoreboard, currently TODO, want to increment score based in successful hit
     func scoreBoard() {
         let oldScore = Int(viewController.score.text!)
         let newScore = oldScore! + 1
@@ -254,10 +317,10 @@ class GameScene: SKScene {
         duck.name = "duck"
         duck.size = CGSize(width: 50, height: 50)
         
-        // TODO: Find Duck sprite
-        let randomYCord = random(min: screenSize.minY+50, max: screenSize.maxY-20)
+        // Have to do 50 here because self.bomb.size is nil
+        let randomYCord = random(min: screenSize.minY + 50, max: screenSize.maxY - self.viewController.score.bounds.size.height)
         
-        // Want to spawn from furthes X axis but random Y axis
+        // Want to spawn from furthest X axis but random Y axis
         duck.position = CGPoint(x: screenSize.maxX, y: randomYCord)
         addChild(duck)
         
@@ -272,30 +335,6 @@ class GameScene: SKScene {
         let doneMove = SKAction.removeFromParent()
         duck.run(SKAction.sequence([movement, doneMove]))
     }
-    
-    
-    
-    
-    
-    func touchDown(atPoint pos : CGPoint) {
-        
-        if let n = self.nodeList.first {
-            if n.name != "bomb" {
-                n.position = pos
-                //n.strokeColor = SKColor.green
-                self.nodeList.first?.removeFromParent()
-                self.addChild(n)
-            }
-            
-            
-        }
-        
-    }
-    
-
-    
-    
-    
     
     
 }

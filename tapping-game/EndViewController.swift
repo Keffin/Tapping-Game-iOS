@@ -13,11 +13,19 @@ class EndViewController: UIViewController {
    
     
     @IBOutlet weak var finalScoreLabel: UILabel!
+    var finalScore: String!
+    
+    
+    @IBAction func restartGame(_ sender: Any) {
+        //self.navigationController?.popToRootViewController(animated: true)
+        self.navigationController?.dismiss(animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         hideNavBar()
         // Do any additional setup after loading the view.
+        finalScoreLabel.text = finalScore
         
     }
     

@@ -17,11 +17,7 @@ let screenSize: CGRect = UIScreen.main.bounds
 
 class GameViewController: UIViewController {
     
-    //let ball = SKShapeNode(circleOfRadius: 20)
-    //var ball: UIView
-    //var sceneView: SKView
-    //var skView: SKView!
-    //var gameScreen: GameScreen!
+ 
     @IBOutlet weak var score: UITextField!
     
     var scene: GameScene!
@@ -53,7 +49,7 @@ class GameViewController: UIViewController {
             
             // Set parent scene to enable interaction
             scene.isUserInteractionEnabled = true
-            
+            scene.scaleMode = .resizeFill
             // This will set the bottom left corner to our origin, extremely important
             scene.anchorPoint = CGPoint(x: 0, y: 0)
             

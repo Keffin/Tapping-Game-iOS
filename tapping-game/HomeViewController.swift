@@ -10,6 +10,24 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
+    @IBOutlet weak var score: UILabel!
+    
+    
+    @IBAction func playButton(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let gameViewController = storyBoard.instantiateViewController(identifier: "gameview") as! GameViewController
+        
+        
+        let nav = UINavigationController()
+        //gameViewController.modalPresentationStyle = .fullScreen
+        nav.modalPresentationStyle = .fullScreen
+        nav.viewControllers = [gameViewController]
+        self.present(nav, animated: true)
+        //self.present(gameViewController, animated: true, completion: nil)
+
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //view.backgroundColor = UIColor.darkGray
@@ -18,7 +36,21 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: Actions
+    override func viewWillAppear(_ animated: Bool) {
+        let userDefaults = Foundation.UserDefaults.standard
+        let value = userDefaults.string(forKey: "Record")
+            
+        self.navigationController?.isNavigationBarHidden = false
         
+        if value == nil {
+            score.text = "0"
+        }
+        else {
+            score.text = value
+        }
+    }
+    
+    
 }
 
 
