@@ -31,7 +31,9 @@ class GameScene: SKScene {
     var highScore: String!
     
     
+    var duckAnimation: SKAction!
     
+    var endButton: SKSpriteNode!
     
     let blastSound = SKAction.playSoundFileNamed("pling", waitForCompletion: false)
     let tickSound = SKAction.playSoundFileNamed("tick", waitForCompletion: false)
@@ -72,10 +74,11 @@ class GameScene: SKScene {
         //let btnNode = SKSpriteNode(color: .red, size: CGSize(width: 60, height: 30))
         
         
-        let c = SKSpriteNode(color: .red, size: CGSize(width: 70, height: 40))
-        c.position = CGPoint(x: (screenSize.maxX / 2), y: screenSize.minY + 35)
+        //let c = SKSpriteNode(color: .red, size: CGSize(width: 70, height: 40))
+        endButton = SKSpriteNode(color: .red, size: CGSize(width: 70, height: 40))
+        endButton.position = CGPoint(x: (screenSize.maxX / 2), y: screenSize.minY + 35)
         
-        c.name = "end"
+        endButton.name = "end"
         
         let lbl = SKLabelNode(fontNamed: "Menlo")
         lbl.text = "End Game"
@@ -86,8 +89,8 @@ class GameScene: SKScene {
         lbl.verticalAlignmentMode = .center
         lbl.name = "end"
         
-        c.addChild(lbl)
-        addChild(c)
+        endButton.addChild(lbl)
+        addChild(endButton)
         
         /*let btn = SKLabelNode(fontNamed: "menlo")
         btn.text = "End Game"
@@ -106,6 +109,7 @@ class GameScene: SKScene {
         let value = userDefaults.string(forKey: "Record")
         highScore = value
         
+        animateDuck()
         run(SKAction.repeatForever(
           SKAction.sequence([
             SKAction.run(duckSpawn),
@@ -310,20 +314,38 @@ class GameScene: SKScene {
         return random() * (max - min) + min
     }
     
+    
+    
+   
+    
+    func animateDuck() {
+        var textures: [SKTexture] = []
+        for i in 1...3 {
+            textures.append(SKTexture(imageNamed: "ghost\(i)"))
+        }
+        self.duckAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+    }
+    
     func duckSpawn() {
         
         //let duck = SKSpriteNode(color: UIColor.orange, size: CGSize(width: 40, height: 40))
-        let duck = SKSpriteNode(imageNamed: "ghost")
+        let duck = SKSpriteNode(imageNamed: "ghost1")
         duck.name = "duck"
         duck.size = CGSize(width: 50, height: 50)
         
-        // Have to do 50 here because self.bomb.size is nil
-        let randomYCord = random(min: screenSize.minY + 50, max: screenSize.maxY - self.viewController.score.bounds.size.height)
         
+        
+        
+        
+        
+        // Have to do 50 here because self.bomb.size is nil
+        let randomYCord = random(min: screenSize.minY + endButton.size.height, max: screenSize.maxY - self.viewController.score.bounds.size.height)
+        //let randomYCord = random(min: screenSize.minY + 50, max: screenSize.maxY - 30)
         // Want to spawn from furthest X axis but random Y axis
         duck.position = CGPoint(x: screenSize.maxX, y: randomYCord)
-        addChild(duck)
         
+        addChild(duck)
+        duck.run(SKAction.repeatForever(duckAnimation))
         // Random movement speed of the ducks
         let speed = random(min: CGFloat(4.0), max: CGFloat(8.0))
         
