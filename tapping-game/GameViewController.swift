@@ -56,17 +56,12 @@ class GameViewController: UIViewController {
             scene.size = view.bounds.size
             view.presentScene(scene)
             
-            
-            
             view.ignoresSiblingOrder = true
             view.showsFPS = true
             view.showsNodeCount = true
             
         }
     }
-    
-    
-    
     
     func hideNavBar() {
         self.navigationController?.navigationBar.isHidden = true

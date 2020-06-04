@@ -70,11 +70,6 @@ class GameScene: SKScene {
         // if difficulity == medium => forDuration: 5
         // if difficulity == hard => forDuration: 2
         
-        //let btnNode = SKShapeNode(rect: CGRect(x: 30, y: 30, width: 55, height: 55))
-        //let btnNode = SKSpriteNode(color: .red, size: CGSize(width: 60, height: 30))
-        
-        
-        //let c = SKSpriteNode(color: .red, size: CGSize(width: 70, height: 40))
         endButton = SKSpriteNode(color: .red, size: CGSize(width: 70, height: 40))
         endButton.position = CGPoint(x: (screenSize.maxX / 2), y: screenSize.minY + 35)
         
@@ -92,18 +87,6 @@ class GameScene: SKScene {
         endButton.addChild(lbl)
         addChild(endButton)
         
-        /*let btn = SKLabelNode(fontNamed: "menlo")
-        btn.text = "End Game"
-        
-        btn.fontSize = 13
-        btn.fontColor = .black
-        
-        btn.name = "end"
-        btn.position = CGPoint(x: (screenSize.maxX / 2), y: screenSize.minY + 30)
-        addChild(btn)*/
-        //btnNode.position = CGPoint(x: (screenSize.maxX / 2), y: screenSize.minY + 30)
-        //btnNode.name = "end"
-        //addChild(btnNode)
         
         let userDefaults = Foundation.UserDefaults.standard
         let value = userDefaults.string(forKey: "Record")
@@ -179,9 +162,7 @@ class GameScene: SKScene {
         //super.touchesEnded(touches, with: event)
         
         for touch in touches {
-            
-            
-            
+        
             let location = touch.location(in: self)
             let touchedNode = atPoint(location)
             
@@ -305,7 +286,7 @@ class GameScene: SKScene {
     }
     
     
-    // 2 random functions
+    // 2 random functions from online 
     func random() -> CGFloat {
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
     }
@@ -328,13 +309,9 @@ class GameScene: SKScene {
     
     func duckSpawn() {
         
-        //let duck = SKSpriteNode(color: UIColor.orange, size: CGSize(width: 40, height: 40))
         let duck = SKSpriteNode(imageNamed: "ghost1")
         duck.name = "duck"
         duck.size = CGSize(width: 50, height: 50)
-        
-        
-        
         
         
         

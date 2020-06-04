@@ -45,6 +45,8 @@
 		E5272A292487B13600819F63 /* ghost1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ghost1.png; sourceTree = "<group>"; };
 		E5272A2A2487B13600819F63 /* ghost2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ghost2.png; sourceTree = "<group>"; };
 		E5272A2B2487B13600819F63 /* ghost3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ghost3.png; sourceTree = "<group>"; };
+		E54C2AF62488D6BC00CA9DC0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Main.strings; sourceTree = "<group>"; };
+		E54C2AF72488D6BC00CA9DC0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		E5509CDA2462F32700909597 /* EndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndViewController.swift; sourceTree = "<group>"; };
 		E5509CDC2462F5F800909597 /* bomb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bomb.png; path = ../../../../bomb.png; sourceTree = "<group>"; };
 		E5509CDD2462F5F800909597 /* ghost.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ghost.png; path = ../../../../ghost.png; sourceTree = "<group>"; };
@@ -65,8 +67,6 @@
 		E595FB792462DF78002E5CEB /* explode.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explode.wav; sourceTree = "<group>"; };
 		E5B9D4F8243381FA00BA4F0E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E5D3DBC124850B7000C079CE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		E5D3DBC22485135800C079CE /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Main.strings; sourceTree = "<group>"; };
-		E5D3DBC32485135800C079CE /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -302,7 +302,7 @@
 			children = (
 				E58D6F76243218F700ABCDB1 /* Base */,
 				E5D3DBC124850B7000C079CE /* en */,
-				E5D3DBC22485135800C079CE /* sv */,
+				E54C2AF62488D6BC00CA9DC0 /* sv */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -311,7 +311,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				E58D6F7B2432190000ABCDB1 /* Base */,
-				E5D3DBC32485135800C079CE /* sv */,
+				E54C2AF72488D6BC00CA9DC0 /* sv */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

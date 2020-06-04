@@ -1,6 +1,6 @@
 
 /* Class = "UILabel"; text = "Final Score"; ObjectID = "1tk-ZI-HDw"; */
-"1tk-ZI-HDw.text" = "Final Score";
+"1tk-ZI-HDw.text" = "Final Poäng";
 
 /* Class = "UIButton"; normalTitle = "Play!"; ObjectID = "69K-h3-N9S"; */
 "69K-h3-N9S.normalTitle" = "Spela!";
@@ -26,6 +26,9 @@
 /* Class = "UILabel"; text = "Tutorial"; ObjectID = "VtK-iP-PDO"; */
 "VtK-iP-PDO.text" = "Tutorial";
 
+/* Class = "UIButton"; normalTitle = "Reset"; ObjectID = "XV4-wn-U03"; */
+"XV4-wn-U03.normalTitle" = "Återställ";
+
 /* Class = "UITextField"; text = "0"; ObjectID = "YuB-D8-YNM"; */
 "YuB-D8-YNM.text" = "0";
 
@@ -33,5 +36,4 @@
 "Ywr-wk-jnx.normalTitle" = "Starta Om";
 
 /* Class = "UITextView"; text = "An arbitrary amount of ghosts will spawn.\n\nYour job is to exterminate them by tapping on them. \n\nEach time you achieve 10 points a tool will spawn for you.\n\nTo use the tool you must tap it and hold on to it while dragging and dropping it. \nOnce dropped, the tools will exterminate ghosts in its radius.\n\nTo end the game, press the red button"; ObjectID = "fdo-8T-NhG"; */
-"fdo-8T-NhG.text" = "Ett slumpmässigt antal spöken kommer spawna.\n\nDitt jobb är att eliminera spökena genom att trycka på dem. \n\nVarje gång du uppnår 10 poäng, ett redskap till din fördel kommer spawna.\n\nFör att använda redskapet måste du trycka på den och hålla i den samtidigt som du drar och släpper den på skärmen. \nNär den blivit släppt kommer redskapet eliminera spökena inom ett viss radie.\n\nFör att stänga av spelet så trycker du på röda knappen.";
-
+"fdo-8T-NhG.text" = "An arbitrary amount of ghosts will spawn.\n\nYour job is to exterminate them by tapping on them. \n\nEach time you achieve 10 points a tool will spawn for you.\n\nTo use the tool you must tap it and hold on to it while dragging and dropping it. \nOnce dropped, the tools will exterminate ghosts in its radius.\n\nTo end the game, press the red button";

@@ -32,5 +32,7 @@
 /* Class = "UIButton"; normalTitle = "Restart"; ObjectID = "Ywr-wk-jnx"; */
 "Ywr-wk-jnx.normalTitle" = "Restart";
 
+/* Class = "UIButton"; normalTitle = "Reset"; ObjectID = "XV4-wn-U03"; */
+"XV4-wn-U03" = "Reset";
 /* Class = "UITextView"; text = "An arbitrary amount of ghosts will spawn.\n\nYour job is to exterminate them by tapping on them. \n\nEach time you achieve 10 points a tool will spawn for you.\n\nTo use the tool you must tap it and hold on to it while dragging and dropping it. \nOnce dropped, the tools will exterminate ghosts in its radius.\n\nTo end the game, press the red button"; ObjectID = "fdo-8T-NhG"; */
 "fdo-8T-NhG.text" = "An arbitrary amount of ghosts will spawn.\n\nYour job is to exterminate them by tapping on them. \n\nEach time you achieve 10 points a tool will spawn for you.\n\nTo use the tool you must tap it and hold on to it while dragging and dropping it. \nOnce dropped, the tools will exterminate ghosts in its radius.\n\nTo end the game, press the red button";

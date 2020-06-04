@@ -17,16 +17,20 @@ class HomeViewController: UIViewController {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let gameViewController = storyBoard.instantiateViewController(identifier: "gameview") as! GameViewController
         
-        
         let nav = UINavigationController()
-        //gameViewController.modalPresentationStyle = .fullScreen
         nav.modalPresentationStyle = .fullScreen
         nav.viewControllers = [gameViewController]
         self.present(nav, animated: true)
-        //self.present(gameViewController, animated: true, completion: nil)
-
     }
     
+    @IBAction func resetButton(_ sender: Any) {
+        let userDefaults = Foundation.UserDefaults.standard
+        let resetVal = "0"
+        score.text = resetVal
+        userDefaults.set(resetVal, forKey: "Record")
+    
+    
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
