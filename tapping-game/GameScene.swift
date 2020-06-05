@@ -281,8 +281,10 @@ class GameScene: SKScene {
     }
     
     
-    // 2 generic random functions from an online source
+    // 2 generic random functions from online sources
     func random() -> CGFloat {
+        // arc4random gives a random val between 0 and 2^32-1.
+        // divide by same val to get a random val between 0 and 1.
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
     }
     
