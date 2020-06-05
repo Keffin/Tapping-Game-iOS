@@ -49,7 +49,7 @@ class GameScene: SKScene {
             shouldSpawnBomb = false
             self.bomb = SKSpriteNode(imageNamed: "bomb")
             self.bomb!.size = CGSize(width: 50, height: 50)
-            //self.bomb = SKSpriteNode(color: UIColor.blue, size: CGSize(width: 20, height: 20))
+            
             self.bomb!.name = "bomb"
             let xCord = screenSize.minX + 38
             let yCord = screenSize.minY + 30
@@ -79,7 +79,7 @@ class GameScene: SKScene {
         lbl.text = "End Game"
         lbl.fontSize = 14
         lbl.fontColor = .black
-        //lbl.position = CGPoint(x: (screenSize.maxX / 2), y: screenSize.minY + 30)
+        
         lbl.horizontalAlignmentMode = .center
         lbl.verticalAlignmentMode = .center
         lbl.name = "end"
@@ -109,8 +109,7 @@ class GameScene: SKScene {
         for t in touches {
             self.nodeList.append(SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3))
             
-            // osäker om detta?
-            //self.touchDown(atPoint: t.location(in: self))
+        
             
             let location = t.location(in: self)
             let touchedNodes = nodes(at: location)
@@ -142,7 +141,6 @@ class GameScene: SKScene {
         super.touchesMoved(touches, with: event)
         
         if self.bomb != nil {
-            //let location = touches.first!.location(in: self)
             
             for touch in touches {
                 let loc = touch.location(in: self)
@@ -197,8 +195,6 @@ class GameScene: SKScene {
                 endViewController.finalScore = viewController.score.text
                 
                 self.viewController.navigationController?.pushViewController(endViewController, animated: true)
-                //self.view?.window?.rootViewController?.present(endViewController, animated: true, completion: ni)
-                //self.view?.window?.rootViewController?.present(endViewController, animated: true, completion: nil)
                 self.viewController.audioPlayer.pause()
                 
             }
@@ -207,8 +203,7 @@ class GameScene: SKScene {
             if touchedNode.name == "bomb" {
                 if self.bomb != nil  {
                     
-                    // "Explode" after 2.0 seconds
-                    //run(tickSound)
+                 
                     self.bomb?.run(SKAction.sequence([SKAction.wait(forDuration: 0.3),
                                                       SKAction.removeFromParent(),
                                                       explodeSound
@@ -286,7 +281,7 @@ class GameScene: SKScene {
     }
     
     
-    // 2 random functions from online 
+    // 2 generic random functions from an online source
     func random() -> CGFloat {
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
     }
@@ -295,10 +290,7 @@ class GameScene: SKScene {
         return random() * (max - min) + min
     }
     
-    
-    
-   
-    
+
     func animateDuck() {
         var textures: [SKTexture] = []
         for i in 1...3 {
@@ -328,7 +320,6 @@ class GameScene: SKScene {
         
         // Changed to sprites go towards a random X point, however same Y as they spawned
         let movement = SKAction.move(to: CGPoint(x: 0, y: randomYCord), duration: TimeInterval(speed))
-    
         
         // Remove from screen if outside
         let doneMove = SKAction.removeFromParent()

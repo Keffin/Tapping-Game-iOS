@@ -11,7 +11,9 @@ The idea behind the game is sort of a "duck shooting at a carneval" idea. The us
   - Clone this repo to your local machine using `https://github.com/Keffin/Tapping-Game-iOS`
 
 ### Run
-Once downloaded, boot up Xcode and open the project. Run on your choice of device. 
+Once downloaded, boot up Xcode and open the project. Pick a device of your choice, it's done at the "tapping-game > device" window near the play button. You can either connect a personal device or use the simulator. 
+If you choose a personal device you need to tell your device to trust the app. This is done in the system settings.  
+
 
 ## Author
  * **Kevin Alemi** 

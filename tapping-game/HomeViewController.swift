@@ -34,7 +34,6 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //view.backgroundColor = UIColor.darkGray
         navigationController?.navigationBar.barTintColor = UIColor.darkGray
         // Do any additional setup after loading the view.
     }

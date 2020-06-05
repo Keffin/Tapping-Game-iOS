@@ -12,7 +12,6 @@ import CoreGraphics
 import AVFoundation
 
 // Global Const, current workaround
-// TODO: Change
 let screenSize: CGRect = UIScreen.main.bounds
 
 class GameViewController: UIViewController {
