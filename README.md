@@ -16,7 +16,7 @@ If you choose a personal device you need to tell your device to trust the app. T
 
 
 ## Author
- * *Kevin Alemi*
+ * **Kevin Alemi**
 
 ## Acknowledgements
 
