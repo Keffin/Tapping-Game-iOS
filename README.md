@@ -1,7 +1,7 @@
 # Tapping-Game-iOS
 
 This is a game I chose to create during my user interface programming 2 course. The course encouraged students to try new platforms and implement a project using new tech. I chose to learn Swift. 
-The idea behind the game is sort of a "duck shooting at a carneval" idea. The user has unlimited time to tap as many ghost sprites as possible, generating 1 point per each successful tap. Each 10 points the user gets a tool to use that can blast several ghost sprites in a set radius. 
+The idea behind the game is sort of a "shooting ducks at a carneval" idea. The user has unlimited time to tap as many ghost sprites as possible, generating 1 point per each successful tap. Each 10 points the user gets a tool to use that can blast several ghost sprites in a set radius. 
 
 ### Prerequisites
   - macOS
